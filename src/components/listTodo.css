@@ -67,3 +67,7 @@ button:hover {
   background-color: #F8F8FF;
   margin-bottom: 20px;
 }
+
+.btnUser a {
+  color: black;
+}

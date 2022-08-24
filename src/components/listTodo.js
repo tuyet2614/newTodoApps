@@ -6,7 +6,7 @@ import Items from "./item";
 import Pagination from "./Pagination";
 import 'antd/dist/antd.css';
 import { notification } from 'antd';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 
 const ListTodo = () => {
@@ -22,6 +22,7 @@ const ListTodo = () => {
     const [currentPage, setCurrentPage] = useState(1)
     const [postPerPage] = useState(10)
 
+
     const openNotificationWithIcon = (type) => {
         notification[type]({
             message: 'Notification Title',
@@ -29,6 +30,8 @@ const ListTodo = () => {
                 "add successfully",
         });
     };
+
+
 
     const showData = () => {
 
@@ -173,7 +176,7 @@ const ListTodo = () => {
     const logOutUser = () => {
         console.log(token)
         localStorage.setItem('token', null)
-        navigate('/', { replace: true })
+        navigate('/login', { replace: true })
         // axios.post(`https://api-nodejs-todolist.herokuapp.com/user/logout`, {
         //     headers: {
         //         'Authorization': `Bearer ${token}`,
@@ -193,7 +196,7 @@ const ListTodo = () => {
         <div className="mainList">
             <div className="header">
                 <div className="logOut">
-                    <button onClick={logOutUser}>Log Out</button>
+                    <button onClick={() => logOutUser()}>Log Out</button>
                 </div>
                 <div className="add_button">
 
@@ -206,7 +209,7 @@ const ListTodo = () => {
                 </div>
 
                 <div className="user">
-                    <button>User</button>
+                    <button className="btnUser"><Link to='/user'>User</Link></button>
                 </div>
 
             </div>

@@ -4,6 +4,7 @@ import ListTodo from './components/listTodo';
 import { useEffect, useState } from "react";
 import Login from './components/Login';
 import axios from 'axios';
+import User from './components/User';
 import {
   BrowserRouter as Router,
   Switch,
@@ -34,48 +35,43 @@ import SignUp from './components/signUp';
 //   }, []);
 
 // };
+const PrivateRoute = (token) => {
 
-const ProtectedRoute = ({
-  token,
+  return token ? <Outlet /> : <Navigate to='/login' />
+}
+
+const ProtectedRoute = (token,
   redirectPath = '/login',
+) => {
 
-}) => {
-  if (!token) {
-    console.log(token)
-    return <Navigate to='/login' replace />;
-  }
-
-  return <Outlet />;
+  return token ? <Outlet /> : <Navigate to={redirectPath} replace />
 };
 
 function App() {
-
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token")
 
   return (
     <div className="App">
       <header className="App-header">
+        <BrowserRouter>
+          <Routes>
+            {/* <Route path="/" element={<Login />} /> */}
+            <Route element={<PrivateRoute token={token} />}>
+              <Route path="/" element={<ListTodo />} />
+              <Route path="/todo" element={<ListTodo />} />
+            </Route>
 
-        <Routes>
-          <Route element={<ProtectedRoute token={!!token} />}>
-            <Route path="/" element={<ListTodo />} />
-            <Route path="/todo" element={<ListTodo />} />
-          </Route>
-
-          <Route exact path="/signup" element={<SignUp />} />
-          <Route exact path="/login" element={<Login />} />
-          {/* <Route exact path="/todo"
-            element={<ListTodo />} /> */}
-
-
-          {/* <Route path="/user" element={<Splash />}>
-              <Route path=":id" element={<Splash />} />
-            </Route> */}
-        </Routes>
+            <Route exact path="/signup" element={<SignUp />} />
+            <Route exact path="/login" element={<Login />} />
+            {/* <Route exact path="/todo"
+              element={<ListTodo />} /> */}
 
 
-
-
+            <Route path="/user" element={<User token={token} />}>
+              <Route path=":id" element={<User />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
 
       </header>
     </div>

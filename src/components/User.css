@@ -1,0 +1,216 @@
+:root {
+    --logo: #3DBB3D;
+    --gray: #777777;
+    --black: #070707;
+    --green: #7ED386;
+    --aqua: #3FB6A8;
+    --white: #FFFFFF;
+    --hulu: 'Nunito Sans', sans-serif;
+    --heading: 'Montserrat', sans-serif;
+    --body: 'Roboto', sans-serif;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,900|Montserrat|Roboto');
+
+.container {
+    background: var(--white);
+    width: 500px;
+    height: 400px;
+    margin: 0 auto;
+    position: relative;
+    box-shadow: 2px 5px 20px rgba(var(--gray), .5);
+    text-align: left;
+}
+
+.rightbox {
+    width: 100%;
+    height: 100%;
+}
+
+
+.profile {
+    transition: opacity .5s ease-in;
+    width: 100%;
+}
+
+h1 {
+    font-family: var(--heading);
+    color: var(--green);
+    font-size: 1.5em;
+
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+h2 {
+    color: var(--gray);
+
+    width: 100%;
+    text-transform: uppercase;
+    font-size: 20px;
+    letter-spacing: 1px;
+    margin-left: 2px;
+}
+
+p {
+    border-width: 1px;
+    border-style: solid;
+    border-image: linear-gradient(to right, #3FB6A8, rgba(126, 211, 134, 0.5)) 1 0%;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    width: 100%;
+    font-family: var(--heading);
+    font-size: 0.8em;
+    padding: 7px 0;
+    color: var(--black);
+
+}
+
+span {
+    font-size: .5em;
+    color: var(--gray);
+}
+
+.btn {
+    float: right;
+    font-family: var(--body);
+    text-transform: uppercase;
+    font-size: 0.8em;
+    border: none;
+    color: var(--aqua);
+}
+
+.btn:hover {
+    text-decoration: underline;
+    font-weight: 900;
+}
+
+input {
+    border: 1px solid lighten(var(--gray), 40%);
+    font-family: var(--body);
+    padding: 2px;
+    margin: 0;
+}
+
+.privacy h2 {
+    margin-top: 25px;
+}
+
+.settings h2 {
+    margin-top: 25px;
+}
+
+.noshow {
+    opacity: 0;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 30px;
+    text-align: center;
+    margin: 20px 0 20px;
+}
+
+h1 small {
+    display: block;
+    font-size: 15px;
+    padding-top: 8px;
+    color: gray;
+}
+
+.avatar-upload {
+    position: relative;
+    max-width: 205px;
+    margin: 50px auto;
+}
+
+.avatar-upload .avatar-edit {
+    position: absolute;
+    right: 12px;
+    z-index: 1;
+    top: 10px;
+}
+
+.avatar-upload .avatar-edit input {
+    display: none;
+}
+
+.avatar-upload .avatar-edit input+label {
+    display: inline-block;
+    width: 34px;
+    height: 34px;
+    margin-bottom: 0;
+    border-radius: 100%;
+    background: #FFFFFF;
+    border: 1px solid transparent;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+    font-weight: normal;
+    transition: all 0.2s ease-in-out;
+}
+
+.avatar-upload .avatar-edit input+label:hover {
+    background: #f1f1f1;
+    border-color: #d6d6d6;
+}
+
+.avatar-upload .avatar-edit input {
+    content: "\f040";
+    font-family: 'FontAwesome';
+    color: #757575;
+    position: absolute;
+    top: 10px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    margin: auto;
+}
+
+.avatar-upload .avatar-preview {
+    width: 192px;
+    height: 192px;
+    position: relative;
+    border-radius: 100%;
+    border: 6px solid #F8F8F8;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+}
+
+.avatar-upload .avatar-preview>div {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* #imagePreview {
+    background-image: url(http://i.pravatar.cc/500?img=7);
+} */
+
+.container2 .btn {
+    position: absolute;
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+
+    color: white;
+    font-size: 16px;
+
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.icon {
+    margin-top: 5px;
+    margin-left: 3px;
+}
