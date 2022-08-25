@@ -5,6 +5,7 @@ import CreateIcon from "@mui/icons-material/Create";
 import blankUser from '../images/blankAvatar.jpeg'
 import NoteAltIcon from '@mui/icons-material/NoteAlt';
 import { useNavigate } from "react-router-dom";
+import userService from '../service/userService';
 
 const User = (props) => {
     let { openNotificationWithIcon } = props
@@ -21,28 +22,24 @@ const User = (props) => {
     console.log(token);
     const getUser = async () => {
         console.log(token);
-        await axios
-            .get(`https://api-nodejs-todolist.herokuapp.com/user/me`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            })
+        userService.get()
             .then((res) => {
                 setUser(res.data);
                 console.log(user);
                 getAvartar(res.data._id);
             })
             .catch((error) => console.log(error));
+
     };
 
     const getAvartar = (id) => {
-        axios
-            .get(`https://api-nodejs-todolist.herokuapp.com/user/${id}/avatar`)
+        userService.avatar(id)
             .then((res) => {
                 console.log(res);
                 setImage(res.request.responseURL);
             })
             .catch((error) => console.log(error));
+
     };
 
     useEffect(() => {
@@ -60,26 +57,16 @@ const User = (props) => {
     const handleEditUser = (text) => {
         setIsEmpty(false);
         setCheck("name");
+        let data = {
+            name: text
+        }
         if (isEmpty === false) {
-            axios
-                .put(
-                    `https://api-nodejs-todolist.herokuapp.com/user/me`,
-                    {
-                        name: text,
-                    },
-                    {
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                            "Content-Type": "application/json",
-                        },
-                    }
-                )
-                .then((res) => {
-                    setUser({ ...user, name: text });
-                    setIsEmpty(true);
-                    openNotificationWithIcon('success', "Change name successfully")
-                })
-                .catch((error) => console.log(error));
+            userService.update(data).then((res) => {
+                setUser({ ...user, name: text });
+                setIsEmpty(true);
+                openNotificationWithIcon('success', "Change name successfully")
+            }).catch((error) => console.log(error));
+
         }
     };
 
@@ -87,25 +74,16 @@ const User = (props) => {
         setIsEmpty(false);
         setCheck("email");
         if (isEmpty === false) {
-            axios
-                .put(
-                    `https://api-nodejs-todolist.herokuapp.com/user/me`,
-                    {
-                        email: text,
-                    },
-                    {
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                            "Content-Type": "application/json",
-                        },
-                    }
-                )
-                .then((res) => {
-                    setUser({ ...user, email: text });
-                    setIsEmpty(true);
-                    openNotificationWithIcon('success', "Change email successfully")
-                })
-                .catch((error) => console.log(error));
+            let data = {
+                email: text
+            }
+
+            userService.update(data).then((res) => {
+                setUser({ ...user, email: text });
+                setIsEmpty(true);
+                openNotificationWithIcon('success', "Change email successfully")
+            }).catch((error) => console.log(error));
+
         }
     };
 
@@ -114,22 +92,13 @@ const User = (props) => {
         const formData = new FormData();
 
         formData.append("avatar", e.target.files[0]);
-
-        axios
-            .post(
-                `https://api-nodejs-todolist.herokuapp.com/user/me/avatar`,
-                formData,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            )
+        userService.updateAvatar(formData)
             .then((res) => {
                 setImage(URL.createObjectURL(e.target.files[0]));
                 openNotificationWithIcon('success', "Change avatar successfully")
             })
             .catch((error) => console.log(error));
+
     };
 
     const todoReturn = () => {

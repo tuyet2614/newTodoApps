@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+
+
 const Login = (props) => {
   let { openNotificationWithIcon } = props
   const [username, setUserName] = useState();
@@ -12,6 +14,7 @@ const Login = (props) => {
   let navigate = useNavigate();
   const handleLoginSubmit = (e) => {
     e.preventDefault();
+
     axios.post(`https://api-nodejs-todolist.herokuapp.com/user/login`, {
       "email": username,
       "password": password
@@ -21,9 +24,9 @@ const Login = (props) => {
       }
     })
       .then(res => {
-        console.log(res);
-        console.log(res.data);
+
         localStorage.setItem("token", res.data.token);
+
         navigate('/todo', { replace: true })
         openNotificationWithIcon('success', "Login successfully")
 

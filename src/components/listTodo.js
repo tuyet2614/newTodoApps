@@ -7,7 +7,10 @@ import Pagination from "./Pagination";
 import { useNavigate, Link } from 'react-router-dom';
 import todoService from "../service/todoService";
 
+
 const ListTodo = (props) => {
+
+
     let { openNotificationWithIcon } = props
     let navigate = useNavigate()
 
@@ -31,6 +34,7 @@ const ListTodo = (props) => {
         }).catch(error => console.log(error));
 
     }
+
 
     useEffect(() => {
         setLoading(true)
@@ -60,6 +64,8 @@ const ListTodo = (props) => {
         setNewContent(e.target.value)
         console.log(e.target.value)
     }
+
+
 
     const handleDelete = (todo) => {
 
@@ -98,6 +104,7 @@ const ListTodo = (props) => {
     }
 
     const handleEditTodo = (todo, e) => {
+
         setNewContent(todo)
         const TodoItem = todoList.find(item => item._id === todo._id)
 
@@ -167,6 +174,8 @@ const ListTodo = (props) => {
                 />
                 <Pagination postPerPage={postPerPage} totalPosts={todoList.length} paginate={paginate} />
             </div>
+
+
         </div >
     )
 

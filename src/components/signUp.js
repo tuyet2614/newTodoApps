@@ -19,6 +19,7 @@ const SignUp = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+
     axios.post('https://api-nodejs-todolist.herokuapp.com/user/register', {
       name: name,
       email: email,
