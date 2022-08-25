@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import './listTodo.css'
-import AddTodo from "./addTodo";
+import AddTodo from "../../components/addTodo";
 import axios from "axios";
-import Items from "./item";
-import Pagination from "./Pagination";
+import Items from "../../components/item";
+import Pagination from "../../components/Pagination";
 import { useNavigate, Link } from 'react-router-dom';
-import todoService from "../service/todoService";
+import todoService from "../../service/todoService";
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import LogoutIcon from '@mui/icons-material/Logout';
 

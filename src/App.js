@@ -1,10 +1,10 @@
 import logo from './logo.svg';
 import './App.css';
-import ListTodo from './components/listTodo';
+import ListTodo from './pages/todo/listTodo';
 import { useEffect, useState } from "react";
-import Login from './components/Login';
+import Login from './pages/login/Login';
 import axios from 'axios';
-import User from './components/User';
+import User from './pages/user/User';
 import {
   BrowserRouter as Router,
   Switch,
@@ -17,7 +17,7 @@ import {
   Navigate,
   Outlet
 } from "react-router-dom";
-import SignUp from './components/signUp';
+import SignUp from './pages/login/signUp';
 import { notification } from 'antd';
 import 'antd/dist/antd.css';
 

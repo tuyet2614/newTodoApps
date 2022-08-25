@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import './Signup.css'
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
-import Login from './Login';
+
 
 const SignUp = (props) => {
   let { openNotificationWithIcon } = props

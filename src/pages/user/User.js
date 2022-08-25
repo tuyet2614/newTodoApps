@@ -2,10 +2,10 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import "./User.css";
 import CreateIcon from "@mui/icons-material/Create";
-import blankUser from '../images/blankAvatar.jpeg'
+import blankUser from '../../images/blankAvatar.jpeg'
 import NoteAltIcon from '@mui/icons-material/NoteAlt';
 import { useNavigate } from "react-router-dom";
-import userService from '../service/userService';
+import userService from '../../service/userService';
 
 const User = (props) => {
     let { openNotificationWithIcon } = props

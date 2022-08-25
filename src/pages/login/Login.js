@@ -49,10 +49,10 @@ const Login = (props) => {
             <input type="password" name="pass" onChange={e => setPassword(e.target.value)} />
 
           </div>
-          <div className="button-container input-container">
-            <input type="submit" />
+          <div className="input-container">
+            <input type="submit" value="Submit" />
           </div>
-          <div className='check input-container'>
+          <div className='checkinput-container'>
             <p>Don't have an account? <Link to='/signup'>Register now</Link></p>
 
           </div>
