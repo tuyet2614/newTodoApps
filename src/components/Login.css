@@ -8,7 +8,7 @@ input[type="email"] {
 input[type="submit"] {
   margin-top: 10px;
   cursor: pointer;
-  font-size: 15px;
+  font-size: 20px;
   background: #01d28e;
   border: 1px solid #01d28e;
   color: #fff;
@@ -28,6 +28,7 @@ input[type="submit"]:hover {
   background-color: white;
   padding: 2rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin-top: 5em;
 }
 
 .list-container {
@@ -40,13 +41,15 @@ input[type="submit"]:hover {
 }
 
 .title {
-  font-size: 25px;
+  font-size: 28px;
   margin-bottom: 20px;
+  color: #01d28e;
+  font-weight: bold;
 }
 
 .input-container {
-  display: flex;
+
   flex-direction: column;
   gap: 8px;
-  margin: 10px;
+  margin-top: 20px;
 }

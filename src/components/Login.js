@@ -4,7 +4,8 @@ import { useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-const Login = () => {
+const Login = (props) => {
+  let { openNotificationWithIcon } = props
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
 
@@ -23,17 +24,18 @@ const Login = () => {
         console.log(res);
         console.log(res.data);
         localStorage.setItem("token", res.data.token);
-        navigate('/', { replace: true })
+        navigate('/todo', { replace: true })
+        openNotificationWithIcon('success', "Login successfully")
 
       })
-      .catch(error => console.log(error));
+      .catch(error => openNotificationWithIcon('error', "user or password incorrect"));
 
 
   }
 
   return (
     <div className="login-form">
-      <div className="title">Sign In</div>
+      <div className="title">SIGN IN</div>
       <div className="form">
         <form onSubmit={handleLoginSubmit}>
           <div className="input-container">
@@ -46,12 +48,12 @@ const Login = () => {
             <input type="password" name="pass" onChange={e => setPassword(e.target.value)} />
 
           </div>
-          <div className="button-container">
+          <div className="button-container input-container">
             <input type="submit" />
           </div>
-          <div className='check'>
-            <span>Don't have an account </span>
-            <Link to='/signup'>Register now</Link>
+          <div className='check input-container'>
+            <p>Don't have an account? <Link to='/signup'>Register now</Link></p>
+
           </div>
         </form>
       </div>

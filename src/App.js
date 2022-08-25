@@ -18,6 +18,8 @@ import {
   Outlet
 } from "react-router-dom";
 import SignUp from './components/signUp';
+import { notification } from 'antd';
+import 'antd/dist/antd.css';
 
 // function Splash() {
 //   const navigate = useNavigate();
@@ -35,6 +37,15 @@ import SignUp from './components/signUp';
 //   }, []);
 
 // };
+
+
+const openNotificationWithIcon = (type, des) => {
+  notification[type]({
+    message: 'Notification Title',
+    description: des
+  });
+};
+
 const PrivateRoute = (token) => {
 
   return token ? <Outlet /> : <Navigate to='/login' />
@@ -50,6 +61,7 @@ const ProtectedRoute = (token,
 function App() {
   const token = localStorage.getItem("token")
 
+
   return (
     <div className="App">
       <header className="App-header">
@@ -57,17 +69,22 @@ function App() {
           <Routes>
             {/* <Route path="/" element={<Login />} /> */}
             <Route element={<PrivateRoute token={token} />}>
-              <Route path="/" element={<ListTodo />} />
-              <Route path="/todo" element={<ListTodo />} />
+              <Route path="/" element={<Login openNotificationWithIcon={openNotificationWithIcon} />} />
+              <Route path="/todo" element={<ListTodo
+                openNotificationWithIcon={openNotificationWithIcon}
+              />} />
             </Route>
 
-            <Route exact path="/signup" element={<SignUp />} />
-            <Route exact path="/login" element={<Login />} />
+            <Route exact path="/signup" element={<SignUp openNotificationWithIcon={openNotificationWithIcon} />} />
+            <Route exact path="/login" element={<Login openNotificationWithIcon={openNotificationWithIcon} />} />
             {/* <Route exact path="/todo"
               element={<ListTodo />} /> */}
 
 
-            <Route path="/user" element={<User token={token} />}>
+            <Route path="/user"
+              element={<User token={token}
+                openNotificationWithIcon={openNotificationWithIcon}
+              />}>
               <Route path=":id" element={<User />} />
             </Route>
           </Routes>

@@ -23,8 +23,13 @@
 }
 
 .rightbox {
+    display: flex;
     width: 100%;
     height: 100%;
+}
+
+.todo {
+    height: 40px;
 }
 
 

@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import './Signup.css'
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import Login from './Login';
 
-const SignUp = () => {
+const SignUp = (props) => {
+  let { openNotificationWithIcon } = props
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -22,7 +23,8 @@ const SignUp = () => {
       name: name,
       email: email,
       password: password,
-      age: 20
+      age: 20,
+      gentle: "man"
     },
       {
         headers: {
@@ -31,9 +33,7 @@ const SignUp = () => {
       })
       .then(res => {
         navigate('/login', { replace: true })
-        console.log(res);
-        console.log(res.data);
-
+        openNotificationWithIcon('success', "Create new user successfully")
       })
       .catch(error => console.log(error));
 
@@ -57,26 +57,51 @@ const SignUp = () => {
     <div className="App">
       <header className="App-header">
         <form className='SignUp_form' onSubmit={(e) => { handleSubmit(e) }}>
-          <h2> SIGN UP</h2>
-          <label >
-            Name:
-          </label><br />
-          <input type="text" value={name} required onChange={(e) => { handleChange(e) }} /><br />
-          <label>
-            Email:
-          </label><br />
-          <input type="email" value={email} required onChange={(e) => { handleEmailChange(e) }} /><br />
-          <label>
-            Password:
-          </label><br />
-          <input type="password" value={password} required onChange={(e) => { handlePasswordChange(e) }} /><br />
-          <label>
-            Confirm Password:
-          </label><br />
-          <input type="password" value={confPassword} required onChange={(e) => { handleConfPasswordChange(e) }} /><br />
-          <br />
-          <input type="submit" value="Submit" />
+          <div className="title">SIGN UP</div>
+          <div className="input-container">
+            <label >
+              Name:
+            </label><br />
+            <input type="text" value={name} required onChange={(e) => { handleChange(e) }} /><br />
+          </div>
+
+
+
+          <div className="input-container">
+            <label>
+              Email:
+            </label><br />
+            <input type="email" value={email} required onChange={(e) => { handleEmailChange(e) }} /><br />
+          </div>
+
+
+          <div className="input-container">
+            <label>
+              Password:
+            </label><br />
+            <input type="password" value={password} required onChange={(e) => { handlePasswordChange(e) }} /><br />
+          </div>
+
+
+          <div className="input-container">
+            <label>
+              Confirm Password:
+            </label><br />
+            <input type="password" value={confPassword} required onChange={(e) => { handleConfPasswordChange(e) }} /><br />
+
+          </div>
+
+          <div className="input-container">
+            <input type="submit" value="Submit" />
+          </div>
+
+
+          <div className="input-container">
+            <p>You already have an account? please <Link to='/login'>Sign in</Link></p>
+          </div>
+
         </form>
+
       </header>
     </div>
   );
