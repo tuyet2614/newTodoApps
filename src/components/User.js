@@ -77,7 +77,7 @@ const User = (props) => {
                 .then((res) => {
                     setUser({ ...user, name: text });
                     setIsEmpty(true);
-                    setCheck("");
+                    openNotificationWithIcon('success', "Change name successfully")
                 })
                 .catch((error) => console.log(error));
         }
@@ -103,7 +103,7 @@ const User = (props) => {
                 .then((res) => {
                     setUser({ ...user, email: text });
                     setIsEmpty(true);
-                    setCheck("");
+                    openNotificationWithIcon('success', "Change email successfully")
                 })
                 .catch((error) => console.log(error));
         }
