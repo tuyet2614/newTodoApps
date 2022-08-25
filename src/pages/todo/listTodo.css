@@ -11,7 +11,7 @@ th {
   text-align: center !important;
 }
 
-th {
+thead {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
@@ -70,4 +70,18 @@ button:hover {
 
 .btnUser a {
   color: black;
+}
+
+.done {
+  margin-right: 5px;
+}
+
+.addForm {
+  display: flex;
+  margin-right: 10px;
+  justify-content: space-between;
+}
+
+.addTodo {
+  margin-left: 5px;
 }

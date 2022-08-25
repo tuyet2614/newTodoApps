@@ -12,14 +12,18 @@
 
 @import url('https://fonts.googleapis.com/css?family=Nunito:400,900|Montserrat|Roboto');
 
-.container {
+.UserContainer {
     background: var(--white);
-    width: 500px;
-    height: 400px;
+    width: 550px;
+    height: 100%;
     margin: 0 auto;
     position: relative;
-    box-shadow: 2px 5px 20px rgba(var(--gray), .5);
+    
     text-align: left;
+    
+  padding: 2rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  
 }
 
 .rightbox {

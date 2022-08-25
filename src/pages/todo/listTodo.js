@@ -8,7 +8,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import todoService from "../../service/todoService";
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import LogoutIcon from '@mui/icons-material/Logout';
-
+import SpinLoading from "../../components/spinner/Spinner";
 
 const ListTodo = (props) => {
 
@@ -30,8 +30,10 @@ const ListTodo = (props) => {
     const currentItems = todoList.slice(indexOfFistPost, indexOfLastPost)
 
     const showData = () => {
+        setLoading(true);
         todoService.getAll().then(res => {
             setTodoList(res.data.data)
+            setLoading(false);
 
         }).catch(error => console.log(error));
 
@@ -39,15 +41,15 @@ const ListTodo = (props) => {
 
 
     useEffect(() => {
-        setLoading(true)
+        
         showData()
-        setLoading(false)
+        
     }, [])
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
     const handleOnclick = () => {
-
+        setLoading(true);
         let data = {
             "description": newContent
         }
@@ -56,6 +58,7 @@ const ListTodo = (props) => {
             then(res => {
                 setTodoList((pre) => [res.data.data, ...pre])
                 openNotificationWithIcon('success', 'add todo', "Add todolist successfully")
+                setLoading(false);
             }).catch(error => console.log(error));
 
         setIsShow(false)
@@ -70,17 +73,18 @@ const ListTodo = (props) => {
 
     const handleDelete = (todo) => {
 
-
+        setLoading(true);
         todoService.remove(todo._id)
             .then(res => {
                 const newTodoList = todoList.filter(item => item._id !== todo._id)
                 setTodoList(newTodoList)
                 openNotificationWithIcon('success', 'delete todo', "Delete todolist successfully")
+                setLoading(false);
             })
             .catch(error => console.log(error));
     }
     const keyDownHandler = (event, todo) => {
-
+        setLoading(true);
         if (event.key === 'Enter') {
             let data = {
                 "description": event.target.value
@@ -89,11 +93,13 @@ const ListTodo = (props) => {
                 .then(res => {
                     setTodoList(todoList.map(item => item._id === todo._id ? { ...res.data.data, description: event.target.value } : item))
                     openNotificationWithIcon('success', 'edit', "Change todolist successfully")
+                    setLoading(false);
                 }).catch(error => console.log(error));
         }
     }
 
     const DataSave = (event, todo) => {
+        setLoading(true);
         let data = {
             "description": event.target.value
         }
@@ -101,11 +107,12 @@ const ListTodo = (props) => {
             .then(res => {
                 setTodoList(todoList.map(item => item._id === todo._id ? { ...res.data.data, description: event.target.value } : item))
                 openNotificationWithIcon('success', 'edit todo', "Change todolist successfully")
+                setLoading(false);
             }).catch(error => console.log(error));
     }
 
     const handleEditTodo = (todo, e) => {
-
+        
         setNewContent(todo)
         const TodoItem = todoList.find(item => item._id === todo._id)
 
@@ -116,6 +123,7 @@ const ListTodo = (props) => {
     }
 
     const DoneTodo = (todo) => {
+        setLoading(true);
         let data = {
             "completed": true
         }
@@ -123,6 +131,7 @@ const ListTodo = (props) => {
             .then(res => {
                 setTodoList(todoList.map(item => item._id === todo._id ? { ...res.data.data, completed: true } : item))
                 openNotificationWithIcon('success', 'check todo', "Todo completed")
+                setLoading(false);
             }).catch(error => console.log(error));
 
     }
@@ -141,43 +150,46 @@ const ListTodo = (props) => {
 
     return (
         <div className="mainList">
-            <div className="header">
-                <div className="logOut">
-                    <button onClick={() => logOutUser()}><LogoutIcon /></button>
-                </div>
-                <div className="add_button">
+            {loading ? (<SpinLoading />) : ""}
+        <div className="header">
+            <div className="logOut">
+                <button onClick={() => logOutUser()}><LogoutIcon /></button>
+            </div>
+            <div className="add_button">
 
-                    {isShow ? <AddTodo
-                        handleOnclick={handleOnclick}
-                        handleOnChange={handleOnChange}
+                {isShow ? <AddTodo
+                    handleOnclick={handleOnclick}
+                    handleOnChange={handleOnChange}
 
-                    /> :
-                        <button onClick={() => handleOnShow()} className="addTodo">create</button>}
-                </div>
-
-                <div className="user">
-                    <button onClick={() => getUser()}><AccountBoxIcon /></button>
-                </div>
-
+                /> :
+                    <button onClick={() => handleOnShow()} className="addTodo">create</button>}
             </div>
 
-            <div className="list_todo">
-                <Items
-                    currentItems={currentItems}
-                    handleEditTodo={handleEditTodo}
-                    keyDownHandler={keyDownHandler}
-                    DoneTodo={DoneTodo}
-                    handleDelete={handleDelete}
-                    DataSave={DataSave}
-                    newContent={newContent}
-
-                    loading={loading}
-                />
-                <Pagination postPerPage={postPerPage} totalPosts={todoList.length} paginate={paginate} />
+            <div className="user">
+                <button onClick={() => getUser()}><AccountBoxIcon /></button>
             </div>
 
+        </div>
 
-        </div >
+        <div className="list_todo">
+            <Items
+                currentItems={currentItems}
+                handleEditTodo={handleEditTodo}
+                keyDownHandler={keyDownHandler}
+                DoneTodo={DoneTodo}
+                handleDelete={handleDelete}
+                DataSave={DataSave}
+                newContent={newContent}
+
+                loading={loading}
+            />
+            <Pagination postPerPage={postPerPage} totalPosts={todoList.length} paginate={paginate} />
+        </div>
+
+        
+    </div >
+        
+        
     )
 
 }

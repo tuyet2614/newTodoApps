@@ -6,6 +6,7 @@ import blankUser from '../../images/blankAvatar.jpeg'
 import NoteAltIcon from '@mui/icons-material/NoteAlt';
 import { useNavigate } from "react-router-dom";
 import userService from '../../service/userService';
+import SpinLoading from "../../components/spinner/Spinner";
 
 const User = (props) => {
     let { openNotificationWithIcon } = props
@@ -13,7 +14,7 @@ const User = (props) => {
     const token = localStorage.getItem("token");
 
     let [isEmpty, setIsEmpty] = useState(true);
-
+    const [loading, setLoading] = useState(false)
     let [editText, setEditText] = useState("");
     let [editEmailText, setEditEmailText] = useState("");
     let [check, setCheck] = useState("");
@@ -21,22 +22,25 @@ const User = (props) => {
     let [user, setUser] = useState([]);
 
     const getUser = () => {
-
+        setLoading(true)
         userService.get()
             .then((res) => {
                 setUser(res.data);
                 getAvartar(res.data._id);
+                
             })
             .catch((error) => console.log(error));
 
     };
 
     const getAvartar = (id) => {
+        
         userService.avatar(id)
             .then((res) => {
                 setImage(res.request.responseURL);
+                setLoading(false)
             })
-            .catch((error) => console.log(error));
+            .catch((error) => setLoading(false));
 
     };
 
@@ -53,47 +57,56 @@ const User = (props) => {
     };
 
     const handleEditUser = (text) => {
+        
         setIsEmpty(false);
         setCheck("name");
         let data = {
             name: text
         }
         if (isEmpty === false) {
+            setLoading(true)
             userService.update(data).then((res) => {
                 setUser({ ...user, name: text });
                 setIsEmpty(true);
                 openNotificationWithIcon('success', "Edit name", "Change name successfully")
+                setLoading(false)
             }).catch((error) => console.log(error));
 
         }
     };
 
     const handleEditEmailUser = (text) => {
+        
         setIsEmpty(false);
         setCheck("email");
         if (isEmpty === false) {
+            setLoading(true)
             let data = {
                 email: text
             }
 
             userService.update(data).then((res) => {
+                
                 setUser({ ...user, email: text });
                 setIsEmpty(true);
                 openNotificationWithIcon('success', "edit email", "Change email successfully")
+                setLoading(false)
             }).catch((error) => console.log(error));
 
         }
     };
 
-    const onImageChange = async (e) => {
+    const onImageChange = (e) => {
+        
         e.preventDefault();
+        setLoading(true)
         const formData = new FormData();
 
         formData.append("avatar", e.target.files[0]);
         userService.updateAvatar(formData)
             .then((res) => {
                 setImage(URL.createObjectURL(e.target.files[0]));
-                openNotificationWithIcon('success', "edit avatar", "Change avatar successfully")
+                setLoading(false)
             })
             .catch((error) => console.log(error));
 
@@ -105,7 +118,8 @@ const User = (props) => {
 
     return (
         <div>
-            <div className="container">
+            {loading ? (<SpinLoading />) : ""}
+            <div className="UserContainer">
                 <div className="rightbox">
                     <button className="todo" onClick={() => { todoReturn() }}><NoteAltIcon /></button>
                     <div className="profile">
