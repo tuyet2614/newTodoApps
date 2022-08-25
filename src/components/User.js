@@ -127,9 +127,7 @@ const User = (props) => {
             )
             .then((res) => {
                 setImage(URL.createObjectURL(e.target.files[0]));
-                alert("ok");
-                console.log(res);
-                console.log(formData);
+                openNotificationWithIcon('success', "Change avatar successfully")
             })
             .catch((error) => console.log(error));
     };

@@ -1,25 +1,25 @@
-import http from "./http-common"
+import todo from "./http-common"
 const getAll = () => {
 
-    return http.get("/task");
+    return todo.get("/task");
 };
 const get = id => {
-    return http.get(`/task/${id}`);
+    return todo.get(`/task/${id}`);
 };
 const create = data => {
-    return http.post("/task", data);
+    return todo.post("/task", data);
 };
 const update = (id, data) => {
-    return http.put(`/task/${id}`, data);
+    return todo.put(`/task/${id}`, data);
 };
 const remove = id => {
-    return http.delete(`/task/${id}`);
+    return todo.delete(`/task/${id}`);
 };
 const removeAll = () => {
-    return http.delete(`/task`);
+    return todo.delete(`/task`);
 };
 const findByTitle = title => {
-    return http.get(`/task?title=${title}`);
+    return todo.get(`/task?title=${title}`);
 };
 const todoService = {
     getAll,

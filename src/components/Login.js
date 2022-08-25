@@ -29,8 +29,6 @@ const Login = (props) => {
 
       })
       .catch(error => openNotificationWithIcon('error', "user or password incorrect"));
-
-
   }
 
   return (
