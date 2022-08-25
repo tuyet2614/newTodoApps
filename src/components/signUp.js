@@ -34,7 +34,7 @@ const SignUp = (props) => {
       })
       .then(res => {
         navigate('/login', { replace: true })
-        openNotificationWithIcon('success', "Create new user successfully")
+        openNotificationWithIcon('success', "Sign up", "Create new user successfully")
       })
       .catch(error => console.log(error));
 

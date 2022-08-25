@@ -19,13 +19,12 @@ const User = (props) => {
     let [check, setCheck] = useState("");
     let [image, setImage] = useState(null);
     let [user, setUser] = useState([]);
-    console.log(token);
-    const getUser = async () => {
-        console.log(token);
+
+    const getUser = () => {
+
         userService.get()
             .then((res) => {
                 setUser(res.data);
-                console.log(user);
                 getAvartar(res.data._id);
             })
             .catch((error) => console.log(error));
@@ -35,7 +34,6 @@ const User = (props) => {
     const getAvartar = (id) => {
         userService.avatar(id)
             .then((res) => {
-                console.log(res);
                 setImage(res.request.responseURL);
             })
             .catch((error) => console.log(error));
@@ -64,7 +62,7 @@ const User = (props) => {
             userService.update(data).then((res) => {
                 setUser({ ...user, name: text });
                 setIsEmpty(true);
-                openNotificationWithIcon('success', "Change name successfully")
+                openNotificationWithIcon('success', "Edit name", "Change name successfully")
             }).catch((error) => console.log(error));
 
         }
@@ -81,7 +79,7 @@ const User = (props) => {
             userService.update(data).then((res) => {
                 setUser({ ...user, email: text });
                 setIsEmpty(true);
-                openNotificationWithIcon('success', "Change email successfully")
+                openNotificationWithIcon('success', "edit email", "Change email successfully")
             }).catch((error) => console.log(error));
 
         }
@@ -95,14 +93,13 @@ const User = (props) => {
         userService.updateAvatar(formData)
             .then((res) => {
                 setImage(URL.createObjectURL(e.target.files[0]));
-                openNotificationWithIcon('success', "Change avatar successfully")
+                openNotificationWithIcon('success', "edit avatar", "Change avatar successfully")
             })
             .catch((error) => console.log(error));
 
     };
 
     const todoReturn = () => {
-        console.log(token)
         navigate('/todo', { replace: true })
     }
 
@@ -178,11 +175,7 @@ const User = (props) => {
                                 {isEmpty === false && check === "email" ? "Save" : "Update"}
                             </button>
                         </p>
-                        <h2>Password </h2>
-                        <p>
-                            {user.password}
-                            <button className="btn">Change</button>
-                        </p>
+
                     </div>
                 </div>
             </div>

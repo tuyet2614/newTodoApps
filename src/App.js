@@ -39,9 +39,9 @@ import 'antd/dist/antd.css';
 // };
 
 
-const openNotificationWithIcon = (type, des) => {
+const openNotificationWithIcon = (type, title, des) => {
   notification[type]({
-    message: 'Notification Title',
+    message: title,
     description: des
   });
 };

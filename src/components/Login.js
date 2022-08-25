@@ -28,10 +28,10 @@ const Login = (props) => {
         localStorage.setItem("token", res.data.token);
 
         navigate('/todo', { replace: true })
-        openNotificationWithIcon('success', "Login successfully")
+        openNotificationWithIcon('success', "login done", "Login successfully")
 
       })
-      .catch(error => openNotificationWithIcon('error', "user or password incorrect"));
+      .catch(error => openNotificationWithIcon('error', "login fail", "user or password incorrect"));
   }
 
   return (

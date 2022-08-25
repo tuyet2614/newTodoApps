@@ -6,6 +6,8 @@ import Items from "./item";
 import Pagination from "./Pagination";
 import { useNavigate, Link } from 'react-router-dom';
 import todoService from "../service/todoService";
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 
 const ListTodo = (props) => {
@@ -30,7 +32,7 @@ const ListTodo = (props) => {
     const showData = () => {
         todoService.getAll().then(res => {
             setTodoList(res.data.data)
-            console.log(res.data.data)
+
         }).catch(error => console.log(error));
 
     }
@@ -52,17 +54,16 @@ const ListTodo = (props) => {
 
         todoService.create(data).
             then(res => {
-                setTodoList((pre) => [...pre, res.data.data,])
-                openNotificationWithIcon('success', "Add todolist successfully")
+                setTodoList((pre) => [res.data.data, ...pre])
+                openNotificationWithIcon('success', 'add todo', "Add todolist successfully")
             }).catch(error => console.log(error));
 
         setIsShow(false)
     }
 
     const handleOnChange = (e) => {
-
         setNewContent(e.target.value)
-        console.log(e.target.value)
+
     }
 
 
@@ -74,7 +75,7 @@ const ListTodo = (props) => {
             .then(res => {
                 const newTodoList = todoList.filter(item => item._id !== todo._id)
                 setTodoList(newTodoList)
-                openNotificationWithIcon('success', "Delete todolist successfully")
+                openNotificationWithIcon('success', 'delete todo', "Delete todolist successfully")
             })
             .catch(error => console.log(error));
     }
@@ -87,7 +88,7 @@ const ListTodo = (props) => {
             todoService.update(todo._id, data)
                 .then(res => {
                     setTodoList(todoList.map(item => item._id === todo._id ? { ...res.data.data, description: event.target.value } : item))
-                    openNotificationWithIcon('success', "Change todolist successfully")
+                    openNotificationWithIcon('success', 'edit', "Change todolist successfully")
                 }).catch(error => console.log(error));
         }
     }
@@ -99,7 +100,7 @@ const ListTodo = (props) => {
         todoService.update(todo._id, data)
             .then(res => {
                 setTodoList(todoList.map(item => item._id === todo._id ? { ...res.data.data, description: event.target.value } : item))
-                openNotificationWithIcon('success', "Change todolist successfully")
+                openNotificationWithIcon('success', 'edit todo', "Change todolist successfully")
             }).catch(error => console.log(error));
     }
 
@@ -121,20 +122,20 @@ const ListTodo = (props) => {
         todoService.update(todo._id, data)
             .then(res => {
                 setTodoList(todoList.map(item => item._id === todo._id ? { ...res.data.data, completed: true } : item))
-                openNotificationWithIcon('success', "Todo completed")
+                openNotificationWithIcon('success', 'check todo', "Todo completed")
             }).catch(error => console.log(error));
 
     }
 
     const logOutUser = () => {
-        console.log(token)
+
         localStorage.setItem('token', null)
         navigate('/login', { replace: true })
     }
 
 
     const getUser = () => {
-        console.log(token)
+
         navigate('/user', { replace: true })
     }
 
@@ -142,7 +143,7 @@ const ListTodo = (props) => {
         <div className="mainList">
             <div className="header">
                 <div className="logOut">
-                    <button onClick={() => logOutUser()}>Log Out</button>
+                    <button onClick={() => logOutUser()}><LogoutIcon /></button>
                 </div>
                 <div className="add_button">
 
@@ -155,7 +156,7 @@ const ListTodo = (props) => {
                 </div>
 
                 <div className="user">
-                    <button onClick={() => getUser()}>User</button>
+                    <button onClick={() => getUser()}><AccountBoxIcon /></button>
                 </div>
 
             </div>

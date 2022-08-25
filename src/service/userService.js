@@ -1,10 +1,7 @@
-import user from "./http-user"
+import user from "../constant/http-user"
 
 const get = () => {
     return user.get(`/me`);
-};
-const create = data => {
-    return user.post("/register", data);
 };
 const update = (data) => {
     return user.put(`/me`, data);
@@ -20,7 +17,6 @@ const updateAvatar = (data) => {
 };
 const userService = {
     get,
-    create,
     update,
     logout,
     avatar,
